@@ -1,15 +1,15 @@
 const periodTypes = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 const colorMappings = {
-    A: 1,
-    B: 2,
-    C: 3,
-    D: 4,
-    E: 5,
-    F: 6,
-    G: 7,
-    WIN: 8,
-    Advisory: 9,
-    Lion: 10,
+    A: 0,
+    B: 0,
+    C: 0,
+    D: 0,
+    E: 0,
+    F: 0,
+    G: 0,
+    WIN: 0,
+    Advisory: 0,
+    Lion: 0,
 };
 
 const dummyCard = document.querySelector('.dummy.class-card');

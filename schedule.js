@@ -1,47 +1,21 @@
-// const SchedColors = {
-//     A: '#ffadad',
-//     B: '#ffd6a5',
-//     C: '#fdffb6',
-//     D: '#c4ffbf',
-//     E: '#9bf6ff',
-//     F: '#a0c4ff',
-//     G: '#bdb2ff',
-//     WIN: '#ffc6ff',
-//     Lion: '#ffd2ad',
-//     Advisory: '#bfffe1',
-// };
-
-// const SchedColors = {
-//     A: '#f9c6c9',
-//     B: '#f7d9c4',
-//     C: '#faedcb',
-//     D: '#c9e4de',
-//     E: '#c6e4f1',
-//     F: '#c6cff1',
-//     G: '#dbcdf0',
-//     WIN: '#ffc6ff',
-//     Lion: '#ffd2ad',
-//     Advisory: '#bfffe1',
-// };
-
 const Colors = [
     '#ffffff',
-    '#f9c6c9',
-    '#f7d9c4',
-    '#faedcb',
-    '#c9e4da',
-    '#c6e4f1',
-    '#c6cff1',
-    '#dbcdf0',
-    '#ffc6ff',
-    '#bfffe1',
-    '#ffd2ad',
-    '#f7facb',
-    '#ffdeee',
-    '#caede6',
-    '#e5e1f7',
-    '#fcf2e6',
-    '#e3e3e3',
+    '#EF4344', // Red
+    // '#f7d9c4',
+    // '#faedcb',
+    // '#c9e4da',
+    // '#c6e4f1',
+    // '#c6cff1',
+    // '#dbcdf0', // Purple
+    // '#ffc6ff',
+    // '#bfffe1',
+    // '#ffd2ad',
+    // '#f7facb',
+    // '#ffdeee',
+    // '#caede6',
+    // '#e5e1f7',
+    // '#fcf2e6',
+    // '#e3e3e3',
 ];
 
 const Schedule = [
@@ -166,7 +140,7 @@ const Schedule = [
                 lunch: [],
             },
             {
-                block: 'Lion',
+                block: 'CAT',
                 number: 1,
                 startTime: '14:35',
                 endTime: '15:25',

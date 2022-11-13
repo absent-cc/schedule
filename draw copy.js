@@ -2,20 +2,6 @@ const canvas = document.getElementById('canvas');
 const canvasClone = document.getElementById('canvas-clone');
 const ctx = canvas.getContext('2d');
 
-const salmon = "#EF4344";
-
-const backgroundColor = "rgba(255, 255, 255, 0)";
-const titleColor = 'white';
-const outlineColor = 'white';
-
-const weekdayFillColor = salmon;
-const weekdayTextColor = "white";
-
-const blockTitleColor = 'white';
-const blockTimeColor = 'white';
-const blockColor = "rgba(255, 255, 255, 0)";
-const blockSeparatorColor = salmon;
-
 function copyCanvas() {
     const base64 = canvasToBase64();
     canvasClone.src = base64;
@@ -26,11 +12,10 @@ function drawRaw() {
 
     const ppi = 300;
 
-    const edgeBorder = 5;
+    const edgeBorder = (1 / 3) * ppi;
     const canvasWidth = 8.5 * ppi;
     const canvasHeight = 11 * ppi;
-    // const titleHeight = (1 / 2) * ppi;
-    const titleHeight = 0;
+    const titleHeight = (1 / 2) * ppi;
     const weekdayHeight = (1 / 3) * ppi;
     const lunchBlocksWidth = (1 / 2) * ppi;
 
@@ -46,46 +31,35 @@ function drawRaw() {
     }
 
     // ctx.fillStyle = "rgba(255, 255, 255, 1)";
-    ctx.fillStyle = backgroundColor;
+    ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-    // ctx.strokeStyle = outlineColor;
-    // ctx.strokeRect(
-    //     edgeBorder,
-    //     edgeBorder,
-    //     canvasWidth - edgeBorder * 2,
-    //     titleHeight,
-    // );
+    ctx.strokeStyle = 'white';
+    ctx.strokeRect(
+        edgeBorder,
+        edgeBorder,
+        canvasWidth - edgeBorder * 2,
+        titleHeight,
+    );
 
     // ctx.globalAlpha = 0.5;
     // ctx.fillStyle = "rgba(0, 0, 0, 1)";
     // ctx.fillStyle = 'Black';
-    // ctx.fillStyle = titleColor;
-    // ctx.textBaseline = 'middle';
-    // ctx.textAlign = 'center';
-    // ctx.font = 'bold 120px Helvetica';
+    ctx.fillStyle = 'white';
+    ctx.textBaseline = 'middle';
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 80px Helvetica';
 
-    // ctx.fillText(
-    //     "The Schedule",
-    //     // UserSettings.title.length > 0 ? UserSettings.title : 'Your Schedule',
-    //     canvasWidth / 2,
-    //     edgeBorder + titleHeight / 2 + 7,
-    // );
-
-
+    ctx.fillText(
+        "The Schedule",
+        // UserSettings.title.length > 0 ? UserSettings.title : 'Your Schedule',
+        canvasWidth / 2,
+        edgeBorder + titleHeight / 2 + 7,
+    );
 
     const columnWidth = (canvasWidth - 2 * edgeBorder) / 5;
     const remainingHeight =
         canvasHeight - 2 * edgeBorder - titleHeight - weekdayHeight;
-
-    // Weekday box colors
-    ctx.fillStyle = weekdayFillColor;
-    ctx.fillRect(
-        edgeBorder,
-        edgeBorder + titleHeight,
-        columnWidth * 5,
-        weekdayHeight,
-    )
 
     // Start and end lines
     ctx.beginPath();
@@ -119,7 +93,7 @@ function drawRaw() {
         }
 
         // Top bar stroke 
-        ctx.strokeStyle = outlineColor;
+        ctx.strokeStyle = 'white';
         ctx.strokeRect(
             edgeBorder + columnWidth * dayNum,
             edgeBorder + titleHeight,
@@ -128,11 +102,11 @@ function drawRaw() {
         );
 
         // Color of weekday text
-        ctx.fillStyle = weekdayTextColor;
+        ctx.fillStyle = 'white';
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'center';
         ctx.font = 'bold 60px Helvetica';
-        
+
         ctx.fillText(
             day.dayName,
             edgeBorder + columnWidth * dayNum + columnWidth / 2,
@@ -144,7 +118,7 @@ function drawRaw() {
             const thisBlockSettings =
                 BlockSettings[
                     `${block.block}${
-                        block.block === 'CAT' ||
+                        block.block === 'Lion' ||
                         block.block === 'Advisory' ||
                         block.block === 'WIN'
                             ? ''
@@ -158,8 +132,7 @@ function drawRaw() {
             const endPixel = minuteToHeight(timeStringToMinute(block.endTime));
 
             if (UserSettings.useColors) {
-                // Setting color for blocks background
-                ctx.fillStyle = blockColor;
+                ctx.fillStyle = Colors[thisBlockSettings.color];
                 ctx.fillRect(
                     edgeBorder + columnWidth * dayNum,
                     startPixel,
@@ -169,7 +142,7 @@ function drawRaw() {
             }
 
             // Setting border color
-            ctx.strokeStyle = outlineColor;
+            ctx.strokeStyle = 'white';
             ctx.strokeRect(
                 edgeBorder + columnWidth * dayNum,
                 startPixel,
@@ -177,21 +150,10 @@ function drawRaw() {
                 endPixel - startPixel,
             );
 
-            if (blockNum < day.blocks.length - 1){
-                ctx.fillStyle = blockSeparatorColor;
-                ctx.fillRect(
-                    edgeBorder + columnWidth * dayNum,
-                    endPixel + 3,
-                    columnWidth - 10,
-                    37,
-                )
-            }
-
             // Advisory
             if (block.block === 'Advisory') {
                 // Block name
-                // MAKE EDITS HERE
-                ctx.fillStyle = blockTitleColor;
+                ctx.fillStyle = 'white';
                 ctx.textBaseline = 'top';
                 ctx.textAlign = 'left';
                 ctx.font = 'bold 50px Helvetica';
@@ -213,7 +175,7 @@ function drawRaw() {
                 );
 
                 // Block time
-                ctx.fillStyle = blockTimeColor;
+                ctx.fillStyle = 'white';
                 ctx.textBaseline = 'top';
                 ctx.textAlign = 'left';
                 ctx.font = '45px Helvetica';
@@ -240,7 +202,7 @@ function drawRaw() {
                 );
             } else {
                 // Block Name
-                ctx.fillStyle = blockTitleColor;
+                ctx.fillStyle = 'white';
                 ctx.textBaseline = 'top';
                 ctx.textAlign = 'left';
                 ctx.font = 'bold 100px Helvetica';
@@ -248,10 +210,10 @@ function drawRaw() {
                 ctx.fillText(
                     `${
                         // If they go to north, it's called a tiger block
-                        block.block === 'CAT' && UserSettings.north
+                        block.block === 'Lion' && UserSettings.north
                             ? 'Tiger'
                             : block.block
-                    }${block.block === 'CAT' ? '' : block.number}`,
+                    }${block.block === 'Lion' ? '' : block.number}`,
                     edgeBorder + columnWidth * dayNum + 20,
                     startPixel + 20 + 10,
                 );
@@ -259,10 +221,10 @@ function drawRaw() {
                 const bNameWidth = ctx.measureText(
                     `${
                         // If they go to north, it's called a tiger block
-                        block.block === 'CAT' && UserSettings.north
+                        block.block === 'Lion' && UserSettings.north
                             ? 'Tiger'
                             : block.block
-                    }${block.block === 'CAT' ? '' : block.number}`,
+                    }${block.block === 'Lion' ? '' : block.number}`,
                 ).width;
 
                 // Block length
@@ -275,7 +237,7 @@ function drawRaw() {
                 );
 
                 // Block times
-                ctx.fillStyle = blockTimeColor;
+                ctx.fillStyle = 'white';
                 ctx.textBaseline = 'top';
                 ctx.textAlign = 'left';
                 ctx.font = '50px Helvetica';
@@ -291,7 +253,7 @@ function drawRaw() {
 
                 // Block info
                 if (
-                    block.block !== 'CAT' &&
+                    block.block !== 'Lion' &&
                     block.block !== 'WIN' &&
                     thisBlockSettings.hasClass
                 ) {
@@ -352,7 +314,7 @@ function drawRaw() {
                         60,
                         maxWidth,
                     );
-                } else if (block.block !== 'CAT' && block.block !== 'WIN') {
+                } else if (block.block !== 'Lion' && block.block !== 'WIN') {
                     // It's a free block!
                     ctx.fillStyle = 'white';
                     ctx.textBaseline = 'top';
@@ -426,18 +388,17 @@ function drawRaw() {
                             ctx.strokeStyle = '#000000';
                         }
                         
-                        ctx.strokeStyle = outlineColor;
-                        // ctx.strokeStyle = 'white';
+                        ctx.strokeStyle = "white";
                         ctx.strokeRect(
                             edgeBorder +
                                 columnWidth * dayNum +
                                 (columnWidth - lunchBlocksWidth),
                             lunchStartPixel,
                             lunchBlocksWidth,
-                            lunchEndPixel - lunchStartPixel - 2,
+                            lunchEndPixel - lunchStartPixel,
                         );
 
-                        ctx.fillStyle = blockTimeColor;
+                        ctx.fillStyle = 'white';
                         ctx.textBaseline = 'top';
                         ctx.textAlign = 'left';
                         ctx.font = 'bold 45px Helvetica';
@@ -450,7 +411,6 @@ function drawRaw() {
                                 20,
                             lunchStartPixel + 28,
                         );
-
 
                         ctx.font = '40px Helvetica';
 
@@ -476,25 +436,6 @@ function drawRaw() {
                                 15,
                             lunchStartPixel + 30 + 60 + 50,
                         );
-
-
-                        ctx.fillStyle = blockSeparatorColor;
-                        var lunchSeparatorHeight = 35;
-
-                        if (dayNum > 1) {
-                            lunchSeparatorHeight = 70;
-                        }
-                        
-                        if (lunchNum < 2) {
-                            ctx.fillRect(
-                                edgeBorder +
-                                    columnWidth * dayNum +
-                                    (columnWidth - lunchBlocksWidth) + 5,
-                                lunchEndPixel,
-                                lunchBlocksWidth - 10,
-                                lunchSeparatorHeight,
-                            )
-                        }
                     }
                 }
             }
@@ -506,7 +447,7 @@ function drawRaw() {
     ctx.textAlign = 'left';
     ctx.font = 'bold 45px Helvetica';
 
-    const footnoteOffsetY = 110;
+    const footnoteOffsetY = 30;
     const footnoteOffsetX = 67;
 
     ctx.fillText(
@@ -517,7 +458,7 @@ function drawRaw() {
 
     const madeWithLength = ctx.measureText('Made with').width;
 
-    ctx.fillStyle = salmon;
+    ctx.fillStyle = 'red';
     ctx.font = 'bold 50px Helvetica';
 
     ctx.fillText(
